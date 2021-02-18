@@ -1,20 +1,54 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>
-      Blank
-    </ion-title>
+    <ion-icon
+      name="add-circle-outline"
+      color="primary"
+      size="large"
+      slot="start"
+      (click)="presentAlertYeniEkle()"
+    ></ion-icon>
+    <ion-title> Kayıtlı Kodlar </ion-title>
+    <ion-icon
+      name="exit-outline"
+      color="danger"
+      size="large"
+      slot="end"
+      (click)="logout()"
+    ></ion-icon>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Blank</ion-title>
-    </ion-toolbar>
-  </ion-header>
-
-  <div id="container">
-    <strong>Ready to create an app?</strong>
-    <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
-  </div>
+  <ion-card *ngFor="let kod of kodlar">
+    <ion-item-sliding>
+      <ion-item-options side="start">
+        <ion-item-option (click)="presentAlertGuncelle(kod)"
+          >Güncelle</ion-item-option
+        >
+      </ion-item-options>
+      <ion-item class="a">
+        <ion-card-header class="a">
+          <ion-card-subtitle class="a">
+            {{kod.payload.doc.data().tarih * 1000 | date:'dd:MM:yyyy'}}
+          </ion-card-subtitle>
+          <ion-card-title class="a">
+            {{kod.payload.doc.data().baslik}}
+          </ion-card-title>
+          <ion-card-content class="a">
+            {{kod.payload.doc.data().icerikTuru}}
+          </ion-card-content>
+          <ion-card-content class="a">
+            {{kod.payload.doc.data().kodSatiri}}
+          </ion-card-content>
+        </ion-card-header>
+      </ion-item>
+      <ion-item-options side="end">
+        <ion-item-option
+          color="danger"
+          (click)="presentAlertConfirm(kod.payload.doc.id)"
+          >Sil</ion-item-option
+        >
+      </ion-item-options>
+    </ion-item-sliding>
+  </ion-card>
 </ion-content>
