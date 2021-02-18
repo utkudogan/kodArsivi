@@ -112,7 +112,7 @@ export class HomePage {
           type: 'text',
           id: 'kodID',
           value: kayit.payload.doc.data().baslik,
-          placeholder: ' Başlık Giriniz',
+          placeholder: 'Başlık Giriniz',
         },
         {
           name: 'icerikTuru',
